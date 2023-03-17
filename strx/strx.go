@@ -30,3 +30,9 @@ func ExtractQuotedWords(strs []string) []string {
 	sort.Strings(words)
 	return words
 }
+
+func ExtractKeywords(content, startMarker, endMarker string) []string {
+	keywordSection := ExtractMiddle(content, startMarker, endMarker)
+	lines := strings.Split(keywordSection, "\n")
+	return ExtractQuotedWords(lines)
+}

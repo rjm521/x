@@ -34,5 +34,21 @@ func TestExtractQuotedWords(t *testing.T) {
 }
 
 func TestExtractKeywords(t *testing.T) {
+	for _, test := range []struct {
+		in   string
+		want []string
+	}{
+		{`
+this is the content>
+"i"
+"am"
+"what"
+"i"
+"am"
+<over`, []string{"am", "am", "i", "i", "what"}},
+	} {
+		got := ExtractKeywords(test.in, ">", "<")
+		assert.Equal(t, test.want, got, test.in)
+	}
 
 }

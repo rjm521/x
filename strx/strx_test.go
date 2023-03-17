@@ -18,3 +18,7 @@ func TestExtractMiddle(t *testing.T) {
 		assert.Equal(t, test.want, got, test.in)
 	}
 }
+
+func TestExtractQuotedWords(t *testing.T) {
+
+}

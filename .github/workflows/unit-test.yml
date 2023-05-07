@@ -1,0 +1,40 @@
+name: package-test
+
+on: [push]
+
+# Declare default permissions as read only.
+permissions: read-all
+
+jobs:
+
+  # -- TESTS ------------------------------------------------------------------
+  unit-tests:
+    name: Unit-Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Harden GitHub Actions Runner
+        uses: step-security/harden-runner@6dacdfc16caa5ebd987908a44ab5b425193385f6
+        with:
+          egress-policy: block
+          allowed-endpoints: >
+            agent.api.stepsecurity.io:443
+            api.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
+            proxy.golang.org:443
+            storage.googleapis.com:443
+            sum.golang.org:443
+
+      - name: Checkout code
+        uses: actions/checkout@83b7061638ee4956cf7545a6f7efe594e5ad0247 # v3.5.1
+
+      - name: Setup Go
+        uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568 # v3.5.0
+        with:
+          go-version-file: 'go.mod'
+          check-latest: true
+          cache: true
+
+      - name: Run the tests
+        run: go test -race -v ./...

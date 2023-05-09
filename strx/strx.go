@@ -5,6 +5,21 @@ import (
 	"strings"
 )
 
+func Cat(strs ...string) string {
+	n := 0
+	for _, s := range strs {
+		n += len(s)
+	}
+
+	var builder strings.Builder
+	builder.Grow(n)
+	for _, s := range strs {
+		builder.WriteString(s)
+	}
+
+	return builder.String()
+}
+
 func ExtractMiddle(str, startMarker, endMarker string) string {
 	startIdx := strings.Index(str, startMarker)
 	if startIdx == -1 {

@@ -53,3 +53,10 @@ this is the content>
 	}
 
 }
+
+func TestCat(t *testing.T) {
+	strs := []string{"hello", " ", "world"}
+	want := "hello world"
+	got := Cat(strs...)
+	assert.Equal(t, want, got, strs)
+}
